@@ -16,7 +16,7 @@ def get_info_from_wiktionary(one_word):
 
 def get_text_from_url(url):
     """
-    :param url:
+    :param url: a string with the url where to get the stuff from
     :return: the text of the url
     """
     s = ur.urlopen(url)
@@ -30,22 +30,33 @@ def get_text_from_url(url):
     return text
 
 
-german_text = get_text_from_url(articles[0])
+def print_particle_verbs(tags):
+    """
 
-tagger = treetaggerwrapper.TreeTagger(TAGLANG='de')
-tags = tagger.tag_text(german_text)
+    :param tags: a list of tags from treetagger
+    :return: doesn't return anything but prints out stuff
+    """
 
-for each in tags:
-    try:
-        word, pos, lemma = each.split('\t')
-        if pos[0] == 'V':
-            current_verb = word
-            current_lemma = lemma
-        if pos == 'PTKVZ':
-            print(current_verb + " " + word)
-            infinitive = word + current_lemma
-            print(infinitive)
-            get_info_from_wiktionary(infinitive)
+    for each in tags:
+        try:
+            word, pos, lemma = each.split('\t')
+            if pos[0] == 'V':
+                current_verb = word
+                current_lemma = lemma
+            if pos == 'PTKVZ':
+                print(current_verb + " " + word)
+                infinitive = word + current_lemma
+                print(infinitive)
+                get_info_from_wiktionary(infinitive)
 
-    except:
-        print("!" + each)
+        except:
+            print("!" + each)
+
+
+for article_url in articles:
+    german_text = get_text_from_url(article_url)
+
+    tagger = treetaggerwrapper.TreeTagger(TAGLANG='de')
+    the_tags = tagger.tag_text(german_text)
+
+    print_particle_verbs(the_tags)
