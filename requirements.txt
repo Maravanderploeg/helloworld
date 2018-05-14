@@ -1,1 +1,3 @@
 wiktionaryparser
+treetaggerwrapper
+beautifulsoup4
