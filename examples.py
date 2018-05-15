@@ -1,6 +1,12 @@
 german = [
     "Du siehst müde aus",
-    "Torra werde aus Berlin ferngesteuert, seine Ideen seien populistisch und schlössen die Hälfte der Bevölkerung aus." #https://www.nzz.ch/leserdebatte/halten-sie-quim-torra-fuer-den-richtigen-mann-fuer-katalonien-ld.1385819
+
+    #https://www.nzz.ch/leserdebatte/halten-sie-quim-torra-fuer-den-richtigen-mann-fuer-katalonien-ld.1385819
+    "Torra werde aus Berlin ferngesteuert, seine Ideen seien populistisch und schlössen die Hälfte der Bevölkerung aus.", 
+    
+    #http://www.faz.net/aktuell/wirtschaft/amerikanische-iran-sanktionen-welchen-schutz-gibt-es-15582815.html
+    "Das trifft vor allem auf Konzerne aus dem Energiesektor zu.", 
+    "Das schließt auch Geldtransfers in Dollar aus."
 ]
 
 articles = [
