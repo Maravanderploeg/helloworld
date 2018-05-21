@@ -55,7 +55,7 @@ def print_particle_verbs(tags):
 
 def get_tagger(language: str):
     """
-    :param language: language code e.g. de
+    :param language: language code e.g. de,nl
     :return: tagger object
     """
     tagger = treetaggerwrapper.TreeTagger(TAGLANG=language)
@@ -72,10 +72,10 @@ def is_particle_verb(word: str, sentence: str, language: str):
     if word not in sentence:
         return False
 
-    if not has_particle_verb(sentence):
+    if not has_particle_verb(sentence, language):
         return False
 
-    tagger = get_tagger('de')
+    tagger = get_tagger(language)
     pos_in_sentence = tagger.tag_text(sentence)
     for each in pos_in_sentence:
         triple = each.split("\t")
@@ -85,8 +85,8 @@ def is_particle_verb(word: str, sentence: str, language: str):
     return False
 
 
-def has_particle_verb(sentence: str):
-    tagger = get_tagger("de")
+def has_particle_verb(sentence: str, language: str):
+    tagger = get_tagger(language)
     pos_in_sentence = tagger.tag_text(sentence)
     print(pos_in_sentence)
     for each in pos_in_sentence:
@@ -96,9 +96,16 @@ def has_particle_verb(sentence: str):
             return True
     return False
 
-print(is_particle_verb("müde", "Du siehst müde aus", "de"))
 
-print(has_particle_verb("Du siehst müde aus"))
+# assert (True == is_particle_verb("kom", "Ik kom in Berlin aan", "nl"))
+assert (False == is_particle_verb("müde", "Du siehst müde aus", "de"))
+assert (True == is_particle_verb("siehst", "Du siehst müde aus", "de"))
+assert (True == is_particle_verb("komme", "Ich komme in Berlin an", "de"))
+assert (False == is_particle_verb("an", "Ich komme in Berlin an", "de"))
+
+
+
+# print(has_particle_verb("Du siehst müde aus"))
 
 # for article_url in articles:
 #     german_text = get_text_from_url(article_url)
