@@ -53,10 +53,57 @@ def print_particle_verbs(tags):
             print("!" + each)
 
 
-for article_url in articles:
-    german_text = get_text_from_url(article_url)
+def get_tagger(language: str):
+    """
+    :param language: language code e.g. de
+    :return: tagger object
+    """
+    tagger = treetaggerwrapper.TreeTagger(TAGLANG=language)
+    return tagger
 
-    tagger = treetaggerwrapper.TreeTagger(TAGLANG='de')
-    the_tags = tagger.tag_text(german_text)
 
-    print_particle_verbs(the_tags)
+def is_particle_verb(word: str, sentence: str, language: str):
+    """
+    :param word: the word that we want to find out if it's a particle verb
+    :param sentence: the sentence in which the word is found
+    :param language: the language of the sentence
+    :return:
+    """
+    if word not in sentence:
+        return False
+
+    if not has_particle_verb(sentence):
+        return False
+
+    tagger = get_tagger('de')
+    pos_in_sentence = tagger.tag_text(sentence)
+    for each in pos_in_sentence:
+        triple = each.split("\t")
+        if triple[0] == word:
+            if triple[1] == "VVFIN":
+                return True
+    return False
+
+
+def has_particle_verb(sentence: str):
+    tagger = get_tagger("de")
+    pos_in_sentence = tagger.tag_text(sentence)
+    print(pos_in_sentence)
+    for each in pos_in_sentence:
+        triple = each.split("\t")
+        print(triple[1])
+        if "PTKVZ" == triple[1]:
+            return True
+    return False
+
+print(is_particle_verb("müde", "Du siehst müde aus", "de"))
+
+print(has_particle_verb("Du siehst müde aus"))
+
+# for article_url in articles:
+#     german_text = get_text_from_url(article_url)
+#
+#     tagger = treetaggerwrapper.TreeTagger(TAGLANG='de')
+#     the_tags = tagger.tag_text(german_text)
+#
+#     print_particle_verbs(the_tags)
