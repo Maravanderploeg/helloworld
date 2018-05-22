@@ -102,7 +102,7 @@ assert (False == is_particle_verb("müde", "Du siehst müde aus", "de"))
 assert (True == is_particle_verb("siehst", "Du siehst müde aus", "de"))
 assert (True == is_particle_verb("komme", "Ich komme in Berlin an", "de"))
 assert (False == is_particle_verb("an", "Ich komme in Berlin an", "de"))
-
+assert (False == is_particle_verb("Berlin", "Ich komme in Berlin an", "de"))
 
 
 # print(has_particle_verb("Du siehst müde aus"))
